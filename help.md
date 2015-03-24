@@ -25,7 +25,7 @@ Ratings may not be accurate. Concept flags may be missing or innacurate.
 5. Guessing Game II TRICKY
 6. Ent Numbers SIMPLE +math
 7. King Thrór's Gold Problem TRICKY +recursion
-8. Maximum Damage HARD +graphs
+8. Maximum Damage SIMPLE +graphs
 
 # hsContest12
 
