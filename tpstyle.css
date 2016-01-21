@@ -1,7 +1,8 @@
 html, body {
   width: 100%;
   height: 100%;
-  background-color: white; }
+  background-color: white;
+  overflow: hidden; }
 
 .scriptwrap {
   overflow: hidden;
@@ -12,6 +13,7 @@ html, body {
   bottom: 0;
   display: flex;
   flex-direction: row;
+  transition: font-size 0.25s ease-out;
   font-size: 2.5em;
   font-family: "Input Mono", "Terminus", monospace; }
   .scriptwrap::before {
@@ -74,18 +76,48 @@ html, body {
   width: 170px; }
   .control-panel .bgrp {
     display: flex; }
-    .control-panel .bgrp * + * {
+    .control-panel .bgrp > * + * {
       margin-top: 0;
       margin-left: 5px; }
+  .control-panel .inputfield {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 2px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    padding: 0; }
+    .control-panel .inputfield *:first-child {
+      border-radius: 3px 0 0 3px; }
+    .control-panel .inputfield *:last-child {
+      border-radius: 0 3px 3px 0; }
+    .control-panel .inputfield label {
+      background-color: rgba(0, 0, 0, 0.2);
+      padding: 2px; }
+    .control-panel .inputfield input {
+      width: 0px;
+      text-align: center;
+      padding: 2px;
+      background-color: rgba(128, 128, 128, 0.2);
+      flex-grow: 1;
+      border: 0;
+      display: block;
+      transition: background-color 0.25s; }
+      .control-panel .inputfield input:invalid, .control-panel .inputfield input[value=""] {
+        background-color: rgba(160, 0, 0, 0.2);
+        box-shadow: none; }
   .control-panel .button {
     flex-grow: 1;
     background-color: rgba(0, 0, 0, 0.2);
-    transition: background-color 0.15s, transform 0.15s, height 0.25s;
-    text-align: center;
     padding: 2px;
     border-radius: 3px;
-    cursor: pointer;
     text-transform: uppercase;
+    transition: background-color 0.15s, transform 0.15s, height 0.25s;
+    text-align: center;
+    cursor: pointer;
     -moz-user-select: none;
     -webkit-user-select: none;
     user-select: none; }
@@ -106,7 +138,7 @@ html, body {
       display: block;
       height: auto;
       border: initial; }
-  .control-panel * + * {
+  .control-panel > * + * {
     margin-top: 5px; }
 
 /*# sourceMappingURL=tpstyle.css.map */

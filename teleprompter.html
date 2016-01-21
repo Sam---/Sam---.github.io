@@ -25,9 +25,20 @@
                 <span class=button id=flower>faster</span>
             </span>
             <span class=button id=reset>RESET</span>
-            <span class=button id=settext>Set Text</span>
+            <div class=inputfield>
+                <label for=cols>cols</label>
+                <input type=text id=cols value=40 size=1 required
+                    pattern="\d+"></input>
+            </div>
+            <div class=inputfield>
+                <label for=fontsize>fontsize</label>
+                <input type=text id=fontsize value="2.5" size=1 required
+                    pattern="(\d*\.)?\d+"></input>
+                <label for=fotsize>em</label>
+            </div>
             <textarea class=pastebox id=pastebox placeholder="Paste here..."
                 ></textarea>
+            <span class=button id=settext>Set Text</span>
             <span class="button hiddenbutton" id=nowset>Set</span>
         </div>
     </body>
