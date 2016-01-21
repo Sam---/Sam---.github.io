@@ -1,0 +1,109 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: white; }
+
+.scriptwrap {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  font-size: 2.5em;
+  font-family: "Input Mono", "Terminus", monospace; }
+  .scriptwrap::before {
+    flex-grow: 2;
+    content: ' '; }
+  .scriptwrap::after {
+    flex-grow: 1;
+    content: ' '; }
+  .scriptwrap .gauge {
+    width: 5px;
+    height: 3.6em;
+    margin-right: -5px;
+    border-top: solid 1px darkRed;
+    border-bottom: solid 1px darkRed;
+    position: relative;
+    transition: height 0.25s ease-out; }
+    .scriptwrap .gauge::before {
+      position: absolute;
+      left: 2px;
+      top: 0;
+      bottom: 0;
+      border-right: solid 1px darkRed;
+      content: ' '; }
+    .scriptwrap .gauge::after {
+      color: darkRed;
+      content: '10 SEC';
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 8px;
+      font-family: sans-serif;
+      white-space: nowrap;
+      transform-origin: top left;
+      transform: translate(18px, 3px) rotate(90deg); }
+  .scriptwrap .script {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: auto; }
+    .scriptwrap .script .scriptrow {
+      white-space: pre;
+      height: 1em;
+      padding-bottom: 1.2em;
+      box-sizing: border-box; }
+      .scriptwrap .script .scriptrow:nth-child(2n+1) {
+        background-color: lightGrey; }
+
+.control-panel {
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 5px;
+  font-family: "Input", sans-serif;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; }
+  .control-panel .bgrp {
+    display: flex; }
+    .control-panel .bgrp * + * {
+      margin-top: 0;
+      margin-left: 5px; }
+  .control-panel .button {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: background-color 0.15s, transform 0.15s, height 0.25s;
+    text-align: center;
+    padding: 2px;
+    border-radius: 3px;
+    cursor: pointer;
+    text-transform: uppercase;
+    -moz-user-select: none;
+    user-select: none; }
+    .control-panel .button:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+      transform: scale(1.1); }
+    .control-panel .button:active {
+      background-color: rgba(127, 127, 127, 0.8);
+      transform: scale(0.8); }
+    .control-panel .button.hiddenbutton {
+      display: none; }
+  .control-panel .pastebox {
+    width: 100%;
+    height: 0;
+    transition: height, 0.25s;
+    box-sizing: border-box;
+    border: none; }
+    .control-panel .pastebox.pb-active {
+      height: auto;
+      border: initial; }
+  .control-panel * + * {
+    margin-top: 5px; }
+
+/*# sourceMappingURL=tpstyle.css.map */

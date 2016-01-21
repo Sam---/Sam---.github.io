@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang=en>
+    <head>
+        <meta charset=utf-8>
+        <link rel=stylesheet href=tpstyle.css>
+        <script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js">
+        </script>
+        <script src=tpscript.js></script>
+    </head>
+    <body>
+        <div class=scriptwrap>
+            <div class=script id=script>
+                <div class=scriptrow>This is an example of a script</div>
+                <div class=scriptrow>With multiple lines.</div>
+                <div class=scriptrow>Of   varying   length.</div>
+            </div>
+            <div class=gauge id=gauge></div>
+        </div>
+        <div class=control-panel>
+            <span class=button id=faster>Play / Stop</span>
+            <span class=bgrp>
+                <span class=button id=slower>&lt;&lt;</span>
+                <span class=button id=flower>&gt;&gt;</span>
+            </span>
+            <span class=button id=reset>RESET</span>
+            <span class=button id=settext>Set Text</span>
+            <textarea class=pastebox id=pastebox></textarea>
+            <span class="button hiddenbutton" id=nowset>Set</span>
+        </div>
+    </body>
+</html>
