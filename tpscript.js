@@ -151,10 +151,10 @@
       return $('#nowset').addClass('hiddenbutton');
     });
     $('#slower').click(function(){
-      return setDefaultSpeed(defaultSpeed + 0.05);
+      return setDefaultSpeed(defaultSpeed - 0.05);
     });
     return $('#flower').click(function(){
-      return setDefaultSpeed(defaultSpeed - 0.05);
+      return setDefaultSpeed(defaultSpeed + 0.05);
     });
   });
 }).call(this);
