@@ -140,7 +140,8 @@
     });
     $('#settext').click(function(){
       $('#pastebox').addClass('pb-active');
-      return $('#nowset').removeClass('hiddenbutton');
+      $('#nowset').removeClass('hiddenbutton');
+      return $(this).addClass('hiddenbutton');
     });
     $('#nowset').click(function(){
       setSpeed(0);
@@ -148,7 +149,8 @@
       reload();
       $('#pastebox').val('');
       $('#pastebox').removeClass('pb-active');
-      return $('#nowset').addClass('hiddenbutton');
+      $(this).addClass('hiddenbutton');
+      return $('#settext').removeClass('hiddenbutton');
     });
     $('#slower').click(function(){
       return setDefaultSpeed(defaultSpeed - 0.05);
