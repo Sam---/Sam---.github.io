@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html lang=en>
     <head>
+        <meta charset=utf-8>
+        <title>Because Pizaa is stupid</title>
         <link rel=stylesheet href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/default.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
-        <script>$(function() {
-            $('pre code').each(function() {
-                hljs.highlightBlock(this, '    ');
+        <script>$(document).ready(function() {
+            hljs.configure({languages:['makefile']});
+            $('pre').each(function(i, elem) {
+                console.log(elem);
+                hljs.highlightBlock(elem, '    ');
             });
         });</script>
+        <style>:root { font-family: sans-serif; }
+            code {
+                background-color: #eee;
+            padding: 0px 5px;}
+        </style>
     </head>
     <body>
 
