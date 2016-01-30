@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang=en>
+    <head>
+        <link rel=stylesheet href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/default.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    </head>
+    <body>
+
+<p>On zeus, you can edit it with <code>vim Makefile</code>
+
+<p>... and I guess the rest of this answer is now a data dump about make. Read it if you like, I guess.
+
+<p>The <tt>Makefile</tt> is used by the <code>make</code> program. Make allows you to automate busywork.
+When you run Make, it will read in the Makefile and look for rules. These rules could look something like this:
+
+<pre>peace:
+	echo "War /"
+	echo "What is it good for?"
+
+file_opened:
+	vim myfile.c
+
+garbage:
+	cat /dev/random
+</pre>
+
+<p>When you type <code>make peace</code>, <code>make file_opened</code>, or <code>make garbage</code>, Make will run the lines of shell code that you put after the rule name. A command that works on the Unix shell will probably work in a Makefile as well. However, Make will only run a rule if the file with the same name as the rule does not exist. You can try this yourself: Create a file name <tt>peace</tt>, and <code>make peace</code> will no longer run your script. This is because Make rules are really meant to create files:
+
+<pre>peace.txt:
+	echo "... absolutely nothing!" &gt; peace.txt # note: the "&gt;" character causes echo's output to be sent to a file
+
+doodle-pro-1.1.tar.gz:
+	curl https://www.samuelphillips.net/doodle-pro-1.1.tar.gz
+
+</pre>
+
+<p>These rules create files as expected; for them, Make's default behaviour is more sensible. After all, once a file has been made, no need to make it again!
+Sometimes, before you can create a file, you need to make another file first. Make allows you to specify "dependencies" after the colon:
+<pre>hello_world.c:
+	echo 'main(){printf("Hello, World!\n");}' &gt; hello_world.c
+
+hello_world: hello_world.c
+	gcc -o hello_world hello_world.c
+</pre>
+
+<p>Now, if you try to <code>make hello_world</code>, Make will write the <tt>hello_world.c</tt> file before it compiles it. If you then delete the <tt>hello_world</tt> binary, Make will <b>not</b> run the first rule again, because <tt>hello_world.c</tt> is still there.
+
+<p>But what would Make do if you edited <tt>hello_world.c</tt> to read <code>main(){printf("Hey world, yo mama so fat she got her own area code!\n");}</code>, the ran <code>make hello_world</code>? Make will check the last modified date of both <tt>hello_world</tt> and <tt>hello_world.c</tt>, and detect that <tt>hello_world.c</tt> is newer than <tt>hello_world</tt>. It will then re-make the binary, and running it will produce the bad joke entered into the source file.
+
+<p>By the way, that file was a little repetitive. Make allows you to use <code>$@</code> to represent the target and <code>$&lt;</code> to represent the first dependency. Here's a cleaner version of the above Makefile:
+<pre>hello_world.c:
+	echo 'main(){printf("Hello, World!\n");}' &gt; $@
+
+hello_world: hello_world.c
+	gcc -o $@ &lt;|_p_3_p_|&gt;lt;
+</pre>
+
+<p>Now: Why would you ever want this? Projects for school are likely to remain relatively small, but in the real world, projects often have thousands of files, and compiling them all by hand would be incredibly tedious. You also wouldn't want to just have a script to compile all of them, because it's likely that only a few files will have changed between compiles. Compiling code that doesn't need to be compiled is a recipe for hours-long builds. Make is a great solution to this problem (though not a perfect one: Make is old and there are now <a href="http://gittup.org/tup/">faster and better alternatives</a>.)
+
+<p>One last thing: What if you really want to have "fake" targets like in the first example? It obviously works just by having the rule, but it's a little concerning that creating a file with a certain name will stop it from working. Make has a solution to this: use the <code>.PHONY</code> declaration. It also has a solution to your code being printed as it's run: put an <code>@</code> in front of it.
+<pre>.PHONY: peace
+
+peace:
+	@echo "Oh, war, I despise"
+	@echo "'Cause it means destruction of innocent lives"
+	@echo "War means tears to thousands of mothers eyes"
+	@echo "When their sons go off to fight and lose their lives"
+</pre>
+
+<p>Oh, and if you just type <code>make</code> without an argument if will run the first rule in the Makefile. This is why it's usually a good idea to start your Makefile with a phony rule named <tt>all</tt>, and then add all the stuff you want to make as dependencies.
+
+<p>You might have noticed that <code>make</code> will compile C code even if it doesn't have a rule to compile it. This is because Make has some built in rules. I consider this to be a mistake by the designers of Make, and prefer to be explicit about what will be done.
+    </body>
+</html>
