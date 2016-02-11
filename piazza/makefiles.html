@@ -67,7 +67,7 @@ hello_world: hello_world.c
 	echo 'main(){printf("Hello, World!\n");}' &gt; $@
 
 hello_world: hello_world.c
-	gcc -o $@ &lt;|_p_3_p_|&gt;lt;
+	gcc -o $@ $&lt;
 </pre>
 
 <p>Now: Why would you ever want this? Projects for school are likely to remain relatively small, but in the real world, projects often have thousands of files, and compiling them all by hand would be incredibly tedious. You also wouldn't want to just have a script to compile all of them, because it's likely that only a few files will have changed between compiles. Compiling code that doesn't need to be compiled is a recipe for hours-long builds. Make is a great solution to this problem (though not a perfect one: Make is old and there are now <a href="http://gittup.org/tup/">faster and better alternatives</a>.)
