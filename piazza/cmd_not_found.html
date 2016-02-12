@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang=en>
+    <head>
+        <meta charset=utf-8>
+        <title>Because Pizaa is stupid</title>
+        <link rel=stylesheet href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/default.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+        <script>$(document).ready(function() {
+            hljs.configure({languages:['makefile']});
+            $('pre').each(function(i, elem) {
+                console.log(elem);
+                hljs.highlightBlock(elem, '    ');
+            });
+        });</script>
+        <style>:root { font-family: sans-serif; }
+            code {
+                background-color: #eee;
+            padding: 0px 5px;}
+        </style>
+    </head>
+    <body>
+        <p>The shell will only look up commands in the directories indicated by
+            the <code>$PATH</code> environment variable. On Unix, the current
+            directory is almost never in the PATH. (I heard somewhere that this
+            is for security reasons.) If you want to run a command in the
+            current directory, use a path to it:</p>
+        <pre>./lab3_name_section &lt; sample_input.txt</pre>
+        <p>See the <tt>./</tt> there? <tt>.</tt> refers to the current
+            directory.</p>
+
+        <p>If you want to be fancy / need to run it over and over again, you can
+            put this in your Makefile:</p>
+<pre>.PHONY: run
+run: lab3_name_section
+	./$&lt;
+</pre>
+
+            <p>Then just <code>make run</code>, and make will build and run your
+                program all at once.</p>
+    </body>
+</html>
+
