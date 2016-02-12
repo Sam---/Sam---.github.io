@@ -20,11 +20,21 @@
         </style>
     </head>
     <body>
-        <p>The shell will only look up commands in the directories indicated by
-            the <code>$PATH</code> environment variable. On Unix, the current
-            directory is almost never in the PATH. (I heard somewhere that this
-            is for security reasons.) If you want to run a command in the
-            current directory, use a path to it:</p>
+        <p>Are you sure the file is named <tt>lab3_name_section</tt>? Unix file
+            systems are case-sensitive, so if it's really
+            <tt>Lab3_name_section</tt>, that's a different file. A good way to
+            know the command will work is to only type the first part then
+            tab-complete it. Pressing TAB will make the shell look for commands
+            or files that you might want to use and fill in their names for you.
+            Saves a lot of typing.</p>
+
+        <p>There's another possibility: the shell will only look up commands in
+            the directories indicated by the <code>$PATH</code> environment
+            variable. On Unix, the current directory is almost never in the
+            PATH. (I heard somewhere that this is for security reasons.) (NOTE:
+            Zeus is one of the "almost never" systems.) If you want to run a
+            command in the current directory, use a path to it:</p>
+
         <pre>./lab3_name_section &lt; sample_input.txt</pre>
         <p>See the <tt>./</tt> there? <tt>.</tt> refers to the current
             directory.</p>
