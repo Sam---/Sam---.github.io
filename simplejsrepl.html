@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset=utf-8>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Simple JS REPL</title>
+    <script type="text/javascript">
+        "use strict";
+
+        let historyPos = null;
+        let _ = undefined;
+
+        function historyUp() {
+            let bc = document.body.children;
+            if (historyPos == null) {
+                historyPos = bc.length - 2;
+                while (1) {
+                    if (bc[historyPos].dataset.isSrc) break;
+                    if (historyPos === 0) break;
+                    --historyPos;
+                }
+            } else {
+                while (1) {
+                    if (historyPos === 0) break;
+                    --historyPos;
+                    if (bc[historyPos].dataset.isSrc) break;
+                }
+            }
+            let srcTag = document.querySelector("#repltxt");
+            if (historyPos != null) {
+                srcTag.value = bc[historyPos].innerText;
+            } else {
+                srcTag.value = "";
+            }
+        }
+        function historyDown() {
+            let bc = document.body.children;
+            if (historyPos == null) {
+                return;
+            } else {
+                while (1) {
+                    if (historyPos == bc.length - 2) {
+                        historyPos = null;
+                        break;
+                    }
+                    ++historyPos;
+                    if (bc[historyPos].dataset.isSrc) break;
+                }
+            }
+            let srcTag = document.querySelector("#repltxt");
+            if (historyPos != null) {
+                srcTag.value = bc[historyPos].innerText;
+            } else {
+                srcTag.value = "";
+            }
+        }
+        function onInputKey(event) {
+            if (event.key == 'ArrowUp') {
+                event.preventDefault();
+                historyUp();
+                return;
+            }
+            if (event.key == 'ArrowDown') {
+                event.preventDefault();
+                historyDown();
+                return;
+            }
+        }
+
+        function createOutputElement(str, color, altColor, isSrc=false) {
+            let c = document.createElement("code");
+            c.style.backgroundColor = color;
+            c.style.setProperty("--alt-color", altColor);
+            c.innerText = str + "\n";
+            if (isSrc) c.dataset.isSrc = "1";
+            return c;
+        }
+        function insertLine(e) {
+            let form = document.querySelector('#replform');
+            document.body.insertBefore(e, form);
+        }
+        function replExec(event) {
+            historyPos = null;
+            event.preventDefault();
+            let srcTag = document.querySelector("#repltxt");
+            let src = srcTag.value;
+            let compiled;
+            let noResult = false;
+            try {
+                compiled = new Function("return (" + src + ")");
+            } catch (e) {
+                try {
+                    compiled = new Function(src);
+                } catch (e2) {
+                    insertLine(createOutputElement(src, "#FEFEDD", "#FFFFE8",true));
+                    insertLine(createOutputElement(String(e.name) + ": " + String(e.message), "#BBFEFE", "#BFFFFF"));
+                    return;
+                }
+                noResult = true;
+            }
+            srcTag.value = "";
+            let result;
+            try {
+                result = compiled();
+            } catch (e) {
+                insertLine(createOutputElement(src, "#FEFEDD", "#FFFFE8", true));
+                insertLine(createOutputElement(String(e.name) + ": " + String(e.message), "#CCFEFE", "#D8FFFF"));
+                return;
+            }
+
+            insertLine(createOutputElement(src, "#FEFEDD", "#FFFFE8", true));
+            if (!noResult && result !== undefined) {
+                insertLine(createOutputElement(JSON.stringify(result, null, 4), "#CCFEFE", "#D8FFFF"));
+            } else {
+                return;
+            }
+            _ = result;
+        }
+    </script>
+    <style type="text/css">
+        body * {
+            white-space: pre;
+            width: 100%;
+            padding-left: 1ex !important;
+            padding-right: 1ex !important;
+        }
+        body *:nth-child(odd) {
+            background-color: var(--alt-color) !important;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        code, input {
+            margin: 0;
+            padding: 0;
+            display: block;
+            border: none;
+            line-height: 200%;
+        }
+        form {
+            display: contents;
+        }
+    </style>
+</head>
+<body>
+    <form id=replform onkeydown="onInputKey(event)" onsubmit="replExec(event)"><input autofocus id=repltxt></form>
+</body>
